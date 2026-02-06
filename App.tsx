@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
-import { Calendar, Users, Map, Utensils, Info, CheckCircle2, Wind } from 'lucide-react';
-import { TRIP_TITLE, TRIP_DATES, MEMBERS, LOGISTICS, FOOD_PLANS, TRIP_SCHEDULE, ACCOMMODATION } from './constants';
-import { PlanType } from './types';
+import { Calendar, Users, Map, Utensils, Info, CheckCircle2, Wind, Globe } from 'lucide-react';
+import { MEMBERS, getTranslation, ACCOMMODATION_DETAILS, LOGISTICS_COMMON, COMMON_LINKS } from './constants';
+import { PlanType, Language } from './types';
 import Timeline from './components/Timeline';
 import InfoCard from './components/InfoCard';
 import MemberAvatar from './components/MemberAvatar';
 
 const App: React.FC = () => {
   const [activePlan, setActivePlan] = useState<PlanType>(PlanType.A);
+  const [lang, setLang] = useState<Language>('en'); // Default to English
 
-  const activeSchedule = activePlan === PlanType.A ? TRIP_SCHEDULE.planA : TRIP_SCHEDULE.planB;
+  const t = getTranslation(lang);
+  const activeSchedule = activePlan === PlanType.A ? t.tripSchedule.planA : t.tripSchedule.planB;
+  const accomName = lang === 'en' ? ACCOMMODATION_DETAILS.nameEn : ACCOMMODATION_DETAILS.nameKo;
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
       {/* Header Image & Title */}
-      <div className="relative h-64 bg-slate-900 overflow-hidden">
+      {/* Changed h-64 to h-80 for more space, increased pb-6 to pb-12 to push text up away from the card */}
+      <div className="relative h-80 bg-slate-900 overflow-hidden group">
         <img 
           src="https://picsum.photos/800/600?grayscale" 
           alt="Winter Mountain" 
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent flex flex-col justify-end p-6">
+        
+        {/* Language Toggle - Absolute Top Right */}
+        <div className="absolute top-4 right-4 z-20">
+          <button 
+            onClick={() => setLang(lang === 'en' ? 'ko' : 'en')}
+            className="flex items-center space-x-2 bg-black/30 hover:bg-black/50 backdrop-blur-md text-white px-3 py-1.5 rounded-full border border-white/20 transition-all text-sm font-medium"
+          >
+            <Globe size={14} />
+            <span>{lang === 'en' ? 'KOR' : 'ENG'}</span>
+          </button>
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent flex flex-col justify-end p-6 pb-12">
           <div className="max-w-3xl mx-auto w-full">
             <span className="inline-block px-3 py-1 bg-blue-500/80 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">
               Confirmed Trip
             </span>
-            <h1 className="text-3xl font-bold text-white mb-1">{TRIP_TITLE}</h1>
-            <div className="flex items-center text-slate-300 text-sm">
-              <Calendar size={14} className="mr-1" />
-              {TRIP_DATES}
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">{t.tripTitle}</h1>
+            <div className="flex items-center text-slate-300 text-sm font-medium">
+              <Calendar size={16} className="mr-1.5" />
+              {t.tripDates}
             </div>
           </div>
         </div>
@@ -43,38 +59,38 @@ const App: React.FC = () => {
             {/* Meeting Info */}
             <div>
               <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center">
-                <Map size={14} className="mr-1" /> Meeting Point
+                <Map size={14} className="mr-1" /> {t.meetingPointLabel}
               </h2>
               <div className="flex flex-col">
                 <a 
-                  href={LOGISTICS.meetingLink} 
+                  href={COMMON_LINKS.meeting} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-lg font-bold text-blue-600 hover:underline flex items-center"
                 >
-                  {LOGISTICS.meetingPoint}
+                  {t.meetingPointName}
                 </a>
-                <span className="text-2xl font-bold text-slate-800 mt-1">{LOGISTICS.meetingTime}</span>
-                <span className="text-xs text-red-500 font-medium mt-1">*Don't be late! Cable car opens early.</span>
+                <span className="text-2xl font-bold text-slate-800 mt-1">{LOGISTICS_COMMON.meetingTime}</span>
+                <span className="text-xs text-red-500 font-medium mt-1">{t.meetingTimeNote}</span>
               </div>
             </div>
 
             {/* Accommodation */}
             <div>
               <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center">
-                <CheckCircle2 size={14} className="mr-1" /> Accommodation
+                <CheckCircle2 size={14} className="mr-1" /> {t.accommodationLabel}
               </h2>
                <div className="flex flex-col">
                 <a 
-                  href={ACCOMMODATION.link} 
+                  href={COMMON_LINKS.accommodation} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-lg font-bold text-green-600 hover:underline flex items-center"
                 >
-                  {ACCOMMODATION.name}
+                  {accomName}
                 </a>
-                <span className="text-sm text-slate-600 mt-1">{ACCOMMODATION.address}</span>
-                <span className="text-xs text-slate-400 mt-1">Confirmed Option 2</span>
+                <span className="text-sm text-slate-600 mt-1">{ACCOMMODATION_DETAILS.address}</span>
+                <span className="text-xs text-slate-400 mt-1">{t.accommodationNote}</span>
               </div>
             </div>
           </div>
@@ -84,11 +100,11 @@ const App: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-sm p-5 border border-slate-100">
           <h2 className="text-sm font-bold text-slate-800 mb-4 flex items-center">
             <Users size={16} className="mr-2 text-blue-500" /> 
-            Participants ({MEMBERS.length})
+            {t.participantsLabel} ({MEMBERS.length})
           </h2>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             {MEMBERS.map((member, idx) => (
-              <MemberAvatar key={idx} member={member} />
+              <MemberAvatar key={idx} member={member} lang={lang} />
             ))}
           </div>
         </div>
@@ -98,36 +114,34 @@ const App: React.FC = () => {
           <div className="bg-slate-200 p-1 rounded-xl flex shadow-inner">
             <button
               onClick={() => setActivePlan(PlanType.A)}
-              className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all flex items-center justify-center ${
+              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all flex items-center justify-center ${
                 activePlan === PlanType.A 
-                  ? 'bg-white text-blue-600 shadow-sm' 
+                  ? 'bg-white text-blue-600 shadow-sm ring-1 ring-black/5' 
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              Plan A: Balwangsan
+              {t.planALabel}
             </button>
             <button
               onClick={() => setActivePlan(PlanType.B)}
-              className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all flex items-center justify-center ${
+              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all flex items-center justify-center ${
                 activePlan === PlanType.B 
-                  ? 'bg-white text-green-600 shadow-sm' 
+                  ? 'bg-white text-green-600 shadow-sm ring-1 ring-black/5' 
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              <Wind size={14} className="mr-1" /> Plan B: Odaesan
+              <Wind size={14} className="mr-1" /> {t.planBLabel}
             </button>
           </div>
-          <div className="text-center mt-2">
+          <div className="text-center mt-2 px-2">
             <p className="text-xs text-slate-500">
-              {activePlan === PlanType.A 
-                ? "Primary plan. Depends on cable car operation (wind check required)." 
-                : "Alternative plan in case of strong wind or heavy snow."}
+              {activePlan === PlanType.A ? t.planADesc : t.planBDesc}
             </p>
           </div>
         </div>
 
         {/* Itinerary */}
-        <div>
+        <div className="animate-fade-in">
           {activeSchedule.map((dayData, index) => (
             <Timeline 
               key={index} 
@@ -139,11 +153,11 @@ const App: React.FC = () => {
         </div>
 
         {/* Food & Essentials Section */}
-        <h2 className="text-xl font-bold text-slate-800 mt-8 mb-4 px-2">Trip Essentials</h2>
+        <h2 className="text-xl font-bold text-slate-800 mt-8 mb-4 px-2">{t.tripEssentialsLabel}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InfoCard title="Food & BBQ" icon={Utensils} colorClass="bg-orange-50 border-orange-100">
+          <InfoCard title={t.foodLabel} icon={Utensils} colorClass="bg-orange-50 border-orange-100">
             <ul className="list-disc list-inside space-y-1 mt-2 marker:text-orange-400">
-              {FOOD_PLANS.map((plan, idx) => (
+              {t.foodPlans.map((plan, idx) => (
                 <li key={idx} className="mb-2">
                   <span className="font-semibold text-slate-800">{plan.category}</span>
                   <ul className="list-none pl-4 text-xs text-slate-600 mt-1 space-y-0.5 border-l-2 border-orange-200 ml-1">
@@ -156,15 +170,15 @@ const App: React.FC = () => {
             </ul>
           </InfoCard>
 
-          <InfoCard title="Logistics & Notes" icon={Info} colorClass="bg-blue-50 border-blue-100">
+          <InfoCard title={t.logisticsLabel} icon={Info} colorClass="bg-blue-50 border-blue-100">
              <ul className="list-disc list-inside space-y-2 mt-2 marker:text-blue-400">
-              {LOGISTICS.notes.map((note, idx) => (
+              {t.logisticsNotes.map((note, idx) => (
                 <li key={idx} className="leading-relaxed">{note}</li>
               ))}
             </ul>
             <div className="mt-4 pt-4 border-t border-blue-200">
-              <p className="text-xs font-semibold text-blue-800">Shopping Team</p>
-              <p className="text-xs text-blue-600">Marco, Medrein, Euichan, Euijin (Friday)</p>
+              <p className="text-xs font-semibold text-blue-800">{t.shoppingTeamLabel}</p>
+              <p className="text-xs text-blue-600">{t.shoppingTeamMembers}</p>
             </div>
           </InfoCard>
         </div>
@@ -172,7 +186,7 @@ const App: React.FC = () => {
         <div className="h-10"></div>
         
         <footer className="text-center text-slate-400 text-xs pb-6">
-          <p>Created with Love for the Gangwon Trip Team ❤️</p>
+          <p>{t.footer}</p>
           <p className="mt-1">February 2026</p>
         </footer>
       </div>
