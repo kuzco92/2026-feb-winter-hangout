@@ -90,14 +90,14 @@ const DATA_EN: TranslationData = {
   lunchPlacesLabel: "Lunch Recommendations",
   lunchPlaces: [
     {
-      name: "Lee Hyoseok Literature Forest",
+      name: "Memilkkot Pil Muryeop",
       category: "Buckwheat Noodles (Memil-guksu)",
       description: "Famous buckwheat restaurant near the literature forest.",
       address: "33-13 Leehyoseok-gil, Bongpyeong-myeon, Pyeongchang-gun",
       link: COMMON_LINKS.memil
     },
     {
-      name: "Soljae Ongsimi",
+      name: "Soljae Ongsimi Makguksu",
       category: "Ongsimi, Makguksu",
       description: "Traditional potato dough soup and buckwheat noodles.",
       address: "162 Jingogae-ro, Jinbu-myeon, Pyeongchang-gun",
@@ -218,14 +218,14 @@ const DATA_KO: TranslationData = {
   lunchPlacesLabel: "점심 후보 식당",
   lunchPlaces: [
     {
-      name: "메밀꽃 필 무렵",
+      name: "메밀꽃필무렵",
       category: "메밀국수",
       description: "이효석 문학관 근처 유명 맛집.",
       address: "강원 평창군 봉평면 이효석길 33-13",
       link: COMMON_LINKS.memil
     },
     {
-      name: "솔재 옹심이",
+      name: "솔재옹심이막국수",
       category: "옹심이, 막국수",
       description: "전통 옹심이와 메밀 요리 전문.",
       address: "강원 평창군 진부면 진고개로 162",
