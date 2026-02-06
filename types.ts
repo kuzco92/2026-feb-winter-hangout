@@ -39,6 +39,14 @@ export interface FoodPlan {
   note?: string;
 }
 
+export interface LunchPlace {
+  name: string;
+  category: string; // Used for "Main Menu"
+  description?: string;
+  link: string;
+  address?: string; // Added address
+}
+
 export interface TranslationData {
   tripTitle: string;
   tripDates: string;
@@ -61,4 +69,6 @@ export interface TranslationData {
   footer: string;
   tripSchedule: TripData;
   foodPlans: FoodPlan[];
+  lunchPlacesLabel: string;
+  lunchPlaces: LunchPlace[];
 }

@@ -4,7 +4,10 @@ export const COMMON_LINKS = {
   meeting: "https://naver.me/xk18ecpQ",
   accommodation: "https://naver.me/GbDRQpcz",
   balwangsan: "https://blog.naver.com/east_west_sea/224153829514",
-  odaesan: "https://blog.naver.com/gustjsdl8/223334297773"
+  odaesan: "https://blog.naver.com/gustjsdl8/223334297773",
+  gamjane: "https://naver.me/FIYss2jJ",
+  soljae: "https://naver.me/xb7Mic7g",
+  memil: "https://naver.me/5ZvxCKDx"
 };
 
 export const MEMBERS: Member[] = [
@@ -29,7 +32,8 @@ export const MEMBERS: Member[] = [
 ];
 
 export const ACCOMMODATION_DETAILS = {
-  nameEn: "Forest Garden (Soop Jeongwon)",
+  // Changed to match the "English (Korean)" style of the meeting point
+  nameEn: "Forest Garden (숲정원)", 
   nameKo: "숲정원 펜션",
   address: "Gangwon-do Pyeongchang"
 };
@@ -52,7 +56,7 @@ const DATA_EN: TranslationData = {
   planADesc: "Primary plan. Depends on cable car operation (wind check required).",
   planBDesc: "Alternative plan in case of strong wind or heavy snow.",
   tripEssentialsLabel: "Trip Essentials",
-  foodLabel: "Food & BBQ",
+  foodLabel: "Dinner & BBQ Plan",
   logisticsLabel: "Logistics & Notes",
   logisticsNotes: [
     "Cable car opens at 8 AM.",
@@ -81,15 +85,30 @@ const DATA_EN: TranslationData = {
         "Spicy Fish Soup (Maeuntang) - Chef Euichan",
         "Soju & Beer"
       ]
+    }
+  ],
+  lunchPlacesLabel: "Lunch Recommendations",
+  lunchPlaces: [
+    {
+      name: "Lee Hyoseok Literature Forest",
+      category: "Buckwheat Noodles (Memil-guksu)",
+      description: "Famous buckwheat restaurant near the literature forest.",
+      address: "33-13 Leehyoseok-gil, Bongpyeong-myeon, Pyeongchang-gun",
+      link: COMMON_LINKS.memil
     },
     {
-      category: "Lunch Options",
-      items: [
-        "Gamjane (Potato dish)",
-        "Soljae Ongsimi (Buckwheat noodles)",
-        "Buckwheat Flower Place"
-      ],
-      note: "Decide based on location"
+      name: "Soljae Ongsimi",
+      category: "Ongsimi, Makguksu",
+      description: "Traditional potato dough soup and buckwheat noodles.",
+      address: "162 Jingogae-ro, Jinbu-myeon, Pyeongchang-gun",
+      link: COMMON_LINKS.soljae
+    },
+    {
+      name: "Gamjane",
+      category: "Potato Pancake, Braised Chicken",
+      description: "Local favorite for potato dishes.",
+      address: "360 Bangadari-ro, Jinbu-myeon, Pyeongchang-gun",
+      link: COMMON_LINKS.gamjane
     }
   ],
   tripSchedule: {
@@ -102,7 +121,7 @@ const DATA_EN: TranslationData = {
           { time: "10:00", activity: "Arrive at Balwangsan", location: "Balwangsan Cable Car", icon: "mountain", link: COMMON_LINKS.balwangsan },
           { time: "10:00 - 12:00", activity: "Cable Car & Skywalk", note: "Depends on wind conditions", icon: "mountain" },
           { time: "12:00 - 13:00", activity: "Move to Lunch", icon: "car" },
-          { time: "13:00 - 14:00", activity: "Lunch", location: "Local Restaurant (TBD)", icon: "food" },
+          { time: "13:00 - 14:00", activity: "Lunch", location: "See recommendations below", icon: "food" },
           { time: "14:00 - 17:30", activity: "Seaside / Free Time", location: "Gangneung Area", icon: "shopping" },
           { time: "17:30 - 18:00", activity: "Move to Accommodation", icon: "car" },
           { time: "18:00 - 19:00", activity: "Check-in & Rest", location: "Soop Jeongwon Pension", icon: "bed", link: COMMON_LINKS.accommodation },
@@ -130,7 +149,7 @@ const DATA_EN: TranslationData = {
           { time: "10:00", activity: "Arrive at Odaesan", location: "Odaesan Fir Forest", icon: "mountain", link: COMMON_LINKS.odaesan },
           { time: "10:00 - 11:00", activity: "Forest Walk (Goblin Filming Site)", note: "Alternative if windy/snowy", icon: "mountain" },
           { time: "11:00 - 12:00", activity: "Move to Lunch", icon: "car" },
-          { time: "12:00 - 13:00", activity: "Lunch", location: "Local Restaurant (TBD)", icon: "food" },
+          { time: "12:00 - 13:00", activity: "Lunch", location: "See recommendations below", icon: "food" },
           { time: "13:00 - 17:00", activity: "Seaside / Café Tour", location: "Gangneung / Anmok Beach", icon: "coffee" },
           { time: "17:00 - 18:00", activity: "Move to Accommodation", icon: "car" },
           { time: "18:00 - 19:00", activity: "Check-in & Rest", location: "Soop Jeongwon Pension", icon: "bed", link: COMMON_LINKS.accommodation },
@@ -166,7 +185,7 @@ const DATA_KO: TranslationData = {
   planADesc: "메인 계획. 케이블카 운영 여부에 따름 (바람 체크 필수).",
   planBDesc: "대안 계획. 강풍이나 폭설 시 진행.",
   tripEssentialsLabel: "여행 준비물 & 정보",
-  foodLabel: "음식 & 바베큐",
+  foodLabel: "저녁 & 바베큐 계획",
   logisticsLabel: "공지사항 & 이동",
   logisticsNotes: [
     "케이블카는 오전 8시에 오픈합니다.",
@@ -194,15 +213,30 @@ const DATA_KO: TranslationData = {
         "매운탕 (의찬 셰프 담당)",
         "소주 & 맥주"
       ]
+    }
+  ],
+  lunchPlacesLabel: "점심 후보 식당",
+  lunchPlaces: [
+    {
+      name: "메밀꽃 필 무렵",
+      category: "메밀국수",
+      description: "이효석 문학관 근처 유명 맛집.",
+      address: "강원 평창군 봉평면 이효석길 33-13",
+      link: COMMON_LINKS.memil
     },
     {
-      category: "점심 후보",
-      items: [
-        "감자네 (감자 요리)",
-        "솔재 옹심이",
-        "메밀꽃 필 무렵"
-      ],
-      note: "현지 상황 보고 결정"
+      name: "솔재 옹심이",
+      category: "옹심이, 막국수",
+      description: "전통 옹심이와 메밀 요리 전문.",
+      address: "강원 평창군 진부면 진고개로 162",
+      link: COMMON_LINKS.soljae
+    },
+    {
+      name: "감자네",
+      category: "감자전, 닭볶음탕",
+      description: "감자 요리가 맛있는 지역 맛집.",
+      address: "강원 평창군 진부면 방아다리로 360",
+      link: COMMON_LINKS.gamjane
     }
   ],
   tripSchedule: {
@@ -215,7 +249,7 @@ const DATA_KO: TranslationData = {
           { time: "10:00", activity: "발왕산 도착", location: "발왕산 케이블카", icon: "mountain", link: COMMON_LINKS.balwangsan },
           { time: "10:00 - 12:00", activity: "케이블카 & 스카이워크", note: "바람세기에 따라 변경 가능", icon: "mountain" },
           { time: "12:00 - 13:00", activity: "점심 식당 이동", icon: "car" },
-          { time: "13:00 - 14:00", activity: "점심 식사", location: "현지 맛집 (미정)", icon: "food" },
+          { time: "13:00 - 14:00", activity: "점심 식사", location: "아래 추천 식당 참고", icon: "food" },
           { time: "14:00 - 17:30", activity: "강릉 바다 / 자유시간", location: "강릉 지역", icon: "shopping" },
           { time: "17:30 - 18:00", activity: "숙소로 이동", icon: "car" },
           { time: "18:00 - 19:00", activity: "체크인 & 휴식", location: "평창 숲정원 펜션", icon: "bed", link: COMMON_LINKS.accommodation },
@@ -243,7 +277,7 @@ const DATA_KO: TranslationData = {
           { time: "10:00", activity: "오대산 도착", location: "오대산 전나무숲", icon: "mountain", link: COMMON_LINKS.odaesan },
           { time: "10:00 - 11:00", activity: "전나무숲길 산책", note: "도깨비 촬영지 (강풍 시 대안)", icon: "mountain" },
           { time: "11:00 - 12:00", activity: "점심 식당 이동", icon: "car" },
-          { time: "12:00 - 13:00", activity: "점심 식사", location: "현지 맛집 (미정)", icon: "food" },
+          { time: "12:00 - 13:00", activity: "점심 식사", location: "아래 추천 식당 참고", icon: "food" },
           { time: "13:00 - 17:00", activity: "강릉 바다 / 카페 투어", location: "강릉 / 안목해변", icon: "coffee" },
           { time: "17:00 - 18:00", activity: "숙소로 이동", icon: "car" },
           { time: "18:00 - 19:00", activity: "체크인 & 휴식", location: "평창 숲정원 펜션", icon: "bed", link: COMMON_LINKS.accommodation },

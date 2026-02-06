@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Users, Map, Utensils, Info, CheckCircle2, Wind, Globe } from 'lucide-react';
+import { Calendar, Users, Map, Utensils, Info, CheckCircle2, Wind, Globe, ExternalLink, ChevronRight, MapPin } from 'lucide-react';
 import { MEMBERS, getTranslation, ACCOMMODATION_DETAILS, LOGISTICS_COMMON, COMMON_LINKS } from './constants';
 import { PlanType, Language } from './types';
 import Timeline from './components/Timeline';
@@ -17,7 +17,6 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
       {/* Header Image & Title */}
-      {/* Changed h-64 to h-80 for more space, increased pb-6 to pb-12 to push text up away from the card */}
       <div className="relative h-80 bg-slate-900 overflow-hidden group">
         <img 
           src="https://picsum.photos/800/600?grayscale" 
@@ -152,17 +151,60 @@ const App: React.FC = () => {
           ))}
         </div>
 
-        {/* Food & Essentials Section */}
-        <h2 className="text-xl font-bold text-slate-800 mt-8 mb-4 px-2">{t.tripEssentialsLabel}</h2>
+        {/* Trip Essentials Header */}
+        <div className="flex items-center justify-between px-2 mt-8 mb-4">
+           <h2 className="text-xl font-bold text-slate-800">{t.tripEssentialsLabel}</h2>
+        </div>
+
+        {/* Lunch Recommendations - NEW SECTION Grid */}
+        <div className="mb-6">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3 px-2 flex items-center">
+            <Utensils size={14} className="mr-2" /> {t.lunchPlacesLabel}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {t.lunchPlaces.map((place, idx) => (
+              <a 
+                key={idx}
+                href={place.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-200 transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="inline-block px-2 py-0.5 bg-orange-100 text-orange-600 text-[10px] font-bold rounded-full truncate max-w-[180px]">
+                      Main Menu: {place.category}
+                    </span>
+                    <ExternalLink size={14} className="text-slate-300 group-hover:text-blue-500 transition-colors flex-shrink-0" />
+                  </div>
+                  <h4 className="font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">{place.name}</h4>
+                  <p className="text-xs text-slate-500 line-clamp-2 mb-2">{place.description}</p>
+                  
+                  {place.address && (
+                    <div className="flex items-start text-slate-400 text-[10px] mt-1">
+                      <MapPin size={10} className="mr-1 mt-0.5 flex-shrink-0" />
+                      <span className="leading-tight">{place.address}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-3 text-xs font-semibold text-blue-500 flex items-center justify-end">
+                  Open Map <ChevronRight size={12} className="ml-0.5" />
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <InfoCard title={t.foodLabel} icon={Utensils} colorClass="bg-orange-50 border-orange-100">
             <ul className="list-disc list-inside space-y-1 mt-2 marker:text-orange-400">
               {t.foodPlans.map((plan, idx) => (
-                <li key={idx} className="mb-2">
-                  <span className="font-semibold text-slate-800">{plan.category}</span>
-                  <ul className="list-none pl-4 text-xs text-slate-600 mt-1 space-y-0.5 border-l-2 border-orange-200 ml-1">
+                <li key={idx} className="mb-3 last:mb-0">
+                  <span className="font-semibold text-slate-800 block mb-1">{plan.category}</span>
+                  <ul className="list-none pl-2 text-xs text-slate-600 space-y-1 border-l-2 border-orange-200 ml-1">
                     {plan.items.map((item, i) => (
-                      <li key={i}>{item}</li>
+                      <li key={i} className="pl-2">{item}</li>
                     ))}
                   </ul>
                 </li>
@@ -171,14 +213,14 @@ const App: React.FC = () => {
           </InfoCard>
 
           <InfoCard title={t.logisticsLabel} icon={Info} colorClass="bg-blue-50 border-blue-100">
-             <ul className="list-disc list-inside space-y-2 mt-2 marker:text-blue-400">
+             <ul className="list-disc list-inside space-y-2 mt-2 marker:text-blue-400 text-sm">
               {t.logisticsNotes.map((note, idx) => (
-                <li key={idx} className="leading-relaxed">{note}</li>
+                <li key={idx} className="leading-relaxed pl-1 -indent-1 ml-1">{note}</li>
               ))}
             </ul>
             <div className="mt-4 pt-4 border-t border-blue-200">
-              <p className="text-xs font-semibold text-blue-800">{t.shoppingTeamLabel}</p>
-              <p className="text-xs text-blue-600">{t.shoppingTeamMembers}</p>
+              <p className="text-xs font-semibold text-blue-800 uppercase tracking-wide mb-1">{t.shoppingTeamLabel}</p>
+              <p className="text-xs text-blue-600 bg-blue-100/50 p-2 rounded-lg">{t.shoppingTeamMembers}</p>
             </div>
           </InfoCard>
         </div>
