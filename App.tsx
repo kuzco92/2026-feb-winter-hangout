@@ -19,9 +19,9 @@ const App: React.FC = () => {
       {/* Header Image & Title */}
       <div className="relative h-80 bg-slate-900 overflow-hidden group">
         <img 
-          src="https://picsum.photos/800/600?grayscale" 
+          src="https://images.unsplash.com/photo-1548266652-99cf27701ced?auto=format&fit=crop&w=1200&h=800&q=80" 
           alt="Winter Mountain" 
-          className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+          className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
         />
         
         {/* Language Toggle - Absolute Top Right */}
